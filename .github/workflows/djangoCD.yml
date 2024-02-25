@@ -1,0 +1,32 @@
+name: Django CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Location
+      run: |
+        echo "$PATH"
+        ls
+    - name: Set Private Key
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY " > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan 2605:fd00:4:1001:f816:3eff:feb2:1cf7 >> ~/.ssh/known_hosts
+
+
+    - name: deploy
+      run:  |
+        ssh -i ~/.ssh/id_rsa ubuntu@2605:fd00:4:1001:f816:3eff:feb2:1cf7 'cd daycare-mgmt && git pull && source daycare-mgmt/venv/bin/activate && pip3 install -r daycare-mgmt/requirements.txt && python3 daycare-mgmt/manage.py makemigrations && python3 daycare-mgmt/manage.py migrate && sudo systemctl daemon-reload && sudo systemctl restart gunicorn'
+
+        

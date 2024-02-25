@@ -1,0 +1,8 @@
+site_name: Daycare Management
+nav:
+    - Requirements: index.md
+    - Management: projman.md
+    - Design: softdes.md
+    - Teamwork: teamwork.md
+    - Meetings: meetmin.md
+    - API: http://[2605:fd00:4:1001:f816:3eff:feb2:1cf7]/docs

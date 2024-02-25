@@ -1,0 +1,10 @@
+daycare-mgmt/home/migrations/
+daycare-mgmt/chat/migrations/
+daycare-mgmt/core/settings.py
+daycare-mgmt/venv/
+site/
+
+
+.env
+daycare-mgmt/venv-mac/
+daycare-mgmt/venv-linux/
